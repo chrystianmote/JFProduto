@@ -64,6 +64,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         mnListar.add(mniListarProdutos);
 
         mniListarCategorias.setText("Listar Categorias");
+        mniListarCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniListarCategoriasActionPerformed(evt);
+            }
+        });
         mnListar.add(mniListarCategorias);
 
         jMenuBar1.add(mnListar);
@@ -92,7 +97,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         FormCadProduto form = new FormCadProduto();
         form.setVisible(true);
-        
+
     }//GEN-LAST:event_mniCadastrarProdutoActionPerformed
 
     private void mniCadastrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadastrarCategoriaActionPerformed
@@ -100,6 +105,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         FormCadCategoria form = new FormCadCategoria();
         form.setVisible(true);
     }//GEN-LAST:event_mniCadastrarCategoriaActionPerformed
+
+    private void mniListarCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListarCategoriasActionPerformed
+        FormListaCategoria form = new FormListaCategoria();
+        form.setVisible(true);
+    }//GEN-LAST:event_mniListarCategoriasActionPerformed
 
     /**
      * @param args the command line arguments

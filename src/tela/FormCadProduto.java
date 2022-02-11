@@ -179,6 +179,8 @@ public class FormCadProduto extends javax.swing.JFrame {
             }
 
         } else {
+            
+            p.setId(Long.parseLong(txtId.getText()));
             boolean alterou = ProdutoControle.Atualizar(p);
             if (alterou) {
                 JOptionPane.showMessageDialog(this, "Atualização Efetuada com sucesso!", "OK", JOptionPane.INFORMATION_MESSAGE);
