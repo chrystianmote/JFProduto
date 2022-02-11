@@ -6,6 +6,7 @@
 package tela;
 
 import controle.CategoriaControle;
+import javax.swing.JOptionPane;
 import modelo.Categoria;
 
 /**
@@ -109,17 +110,25 @@ public class FormCadCategoria extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
 
-        Categoria ct = new Categoria();
         // verifiquem se os campos estão vazios
-        // 
+        Categoria ct = new Categoria();
+        ct.setNomeCategoria(txtNomeCategoria.getText());
+        ct.setDescricao(txtDescricao.getText());
+
         if (btnCadastrar.getText().equalsIgnoreCase("Cadastrar")) {
-            ct.setNomeCategoria(txtNomeCategoria.getText());
-            //...
             boolean cadastrou = CategoriaControle.Cadastrar(ct);
+            if (cadastrou) {
+                JOptionPane.showMessageDialog(this, "Cadastro Efetuado com sucesso!", "OK", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Cadastro não Efetuado!", "Erro", JOptionPane.ERROR);
+            }
         } else {
-            ct.setNomeCategoria(txtNomeCategoria.getText());
-            //...
             boolean atualizou = CategoriaControle.Atualizar(ct);
+            if (atualizou) {
+                JOptionPane.showMessageDialog(this, "Atualização Efetuada com sucesso!", "OK", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Edição não Efetuada!", "Erro", JOptionPane.ERROR);
+            }
         }
 
 

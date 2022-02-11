@@ -177,10 +177,14 @@ public class FormCadProduto extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(this, "Cadastro não Efetuado!", "Erro", JOptionPane.ERROR);
             }
-            //...
+
         } else {
             boolean alterou = ProdutoControle.Atualizar(p);
-            //...
+            if (alterou) {
+                JOptionPane.showMessageDialog(this, "Atualização Efetuada com sucesso!", "OK", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Edição não Efetuada!", "Erro", JOptionPane.ERROR);
+            }
         }
 
 
