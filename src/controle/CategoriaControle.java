@@ -34,7 +34,7 @@ public class CategoriaControle {
                 c.setId(rs.getInt("id"));
                 c.setNomeCategoria(rs.getString("nome"));
                 c.setDescricao(rs.getString("descricao"));
-                c.setDataCadastro(rs.getDate("datacadastro"));
+                c.setDataCadastro(rs.getDate("data_cadastro"));
             }
             return c;
 
@@ -113,7 +113,7 @@ public class CategoriaControle {
                 c.setId(rs.getInt("id"));
                 c.setNomeCategoria(rs.getString("nome"));
                 c.setDescricao(rs.getString("descricao"));
-                c.setDataCadastro(rs.getDate("datacadastro"));
+                c.setDataCadastro(rs.getDate("data_cadastro"));
                 lista.add(c);
             }
             return lista;
@@ -121,6 +121,25 @@ public class CategoriaControle {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+
+    public static boolean Excluir(long id) {
+        try {
+            Connection conn = BancoDados.getConexao(); //conectar com o bando de dados e enviar os dados salvos da classe Contato.
+            String sql = "DELETE FROM tb_categoria  WHERE id = ?; ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setLong(1, id);
+            int linhasafetadas = ps.executeUpdate();
+            if (linhasafetadas > 0) {
+                System.out.println("Apagou!!");
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro: " + e.getMessage());
+            return false;
         }
     }
 

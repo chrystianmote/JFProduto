@@ -7,6 +7,7 @@ package tela;
 
 import controle.CategoriaControle;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import modelo.Categoria;
 
@@ -35,6 +36,9 @@ public class FormListaCategoria extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCategoria = new javax.swing.JTable();
         btnVoltar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtId = new javax.swing.JTextField();
+        btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -68,24 +72,51 @@ public class FormListaCategoria extends javax.swing.JFrame {
         }
 
         btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("ID:");
+
+        btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(395, Short.MAX_VALUE)
-                .addComponent(btnVoltar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVoltar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE))
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnVoltar)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnVoltar)
+                    .addComponent(jLabel1)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExcluir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -93,10 +124,59 @@ public class FormListaCategoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        this.getRecarregarLista();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        long id = Long.parseLong(txtId.getText());
+
+        Object[] options = {"Confirmar", "Cancelar"};
+        int confirmacao = JOptionPane.showOptionDialog(this, "Você deseja mesmo excluir esse registro?",
+                "Confirmação", JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, options, options[0]);
+
+        if (confirmacao == 0) {
+
+            boolean excluiu = CategoriaControle.Excluir(id);
+            if (excluiu) {
+                
+                this.getRecarregarLista();
+                
+                JOptionPane.showMessageDialog(this, "Exclusão Efetuada com sucesso!",
+                        "OK", JOptionPane.INFORMATION_MESSAGE);
+                
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Exclusão não Efetuada!",
+                        "Erro", JOptionPane.ERROR);
+            }
+        }
+
+
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVoltarActionPerformed
+
+    public void limpaTabela() {
+        DefaultTableModel tblRemove = (DefaultTableModel) tblCategoria.getModel();
+        int tamanho = tblRemove.getRowCount();
+        if (tamanho > 0) {
+            for (int i = tamanho-1; i >= 0; i--) {
+                tblRemove.removeRow(i);
+            }
+        }
+    }
+
+    private void getRecarregarLista() {
+        this.limpaTabela();
+        
         List<Categoria> categorias
                 = CategoriaControle.ListarCategorias();
-        DefaultTableModel dtmCategoria = 
-                (DefaultTableModel) tblCategoria.getModel();
+        DefaultTableModel dtmCategoria
+                = (DefaultTableModel) tblCategoria.getModel();
         for (Categoria cat : categorias) {
             String[] dados = {
                 String.valueOf(cat.getId()),
@@ -107,9 +187,7 @@ public class FormListaCategoria extends javax.swing.JFrame {
             dtmCategoria.addRow(dados);
         }
         tblCategoria.setModel(dtmCategoria);
-
-
-    }//GEN-LAST:event_formWindowOpened
+    }
 
     /**
      * @param args the command line arguments
@@ -147,8 +225,11 @@ public class FormListaCategoria extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnVoltar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCategoria;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }
