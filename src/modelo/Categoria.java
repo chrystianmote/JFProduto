@@ -14,6 +14,20 @@ import java.sql.Date;
 public class Categoria {
 
     /**
+     * @return the idUsuario
+     */
+    public long getIdUsuario() {
+        return idUsuario;
+    }
+
+    /**
+     * @param idUsuario the idUsuario to set
+     */
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    /**
      * @return the id
      */
     public int getId() {
@@ -72,6 +86,7 @@ public class Categoria {
     private String nomeCategoria;
     private String descricao;
     private Date dataCadastro;
+    private long idUsuario;
 
     @Override
     public String toString() {

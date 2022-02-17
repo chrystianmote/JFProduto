@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -48,11 +49,12 @@ public class CategoriaControle {
         try {
             Connection conn = BancoDados.getConexao(); //conectar com o bando de dados e enviar os dados salvos da classe Contato.
             String sql = "INSERT INTO tb_categoria ";
-            sql += " (nome, descricao ) VALUES (?,?);";
+            sql += " (nome, descricao, id_usuario ) VALUES (?,?,?);";
             PreparedStatement ps = conn.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, cat.getNomeCategoria());
             ps.setString(2, cat.getDescricao());
+            ps.setLong(3, cat.getIdUsuario());
             int linhasafetadas = ps.executeUpdate();
             if (linhasafetadas > 0) {
                 final ResultSet rs = ps.getGeneratedKeys();
@@ -80,12 +82,14 @@ public class CategoriaControle {
             Connection conn = BancoDados.getConexao(); //conectar com o bando de dados e enviar os dados salvos da classe Contato.
             String sql = "UPDATE tb_categoria ";
             sql += " SET nome = ?, ";
-            sql += " descricao = ? ";
+            sql += " descricao = ?, ";
+            sql += " id_usuario = ? ";
             sql += " WHERE id = ?; ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, cat.getNomeCategoria());
             ps.setString(2, cat.getDescricao());
-            ps.setLong(3, cat.getId());
+            ps.setLong(3, cat.getIdUsuario());
+            ps.setLong(4, cat.getId());
             int linhasafetadas = ps.executeUpdate();
             if (linhasafetadas > 0) {
                 System.out.println("atualizou!");
@@ -113,6 +117,7 @@ public class CategoriaControle {
                 c.setId(rs.getInt("id"));
                 c.setNomeCategoria(rs.getString("nome"));
                 c.setDescricao(rs.getString("descricao"));
+                c.setIdUsuario(rs.getLong("id_usuario"));
                 c.setDataCadastro(rs.getDate("data_cadastro"));
                 lista.add(c);
             }

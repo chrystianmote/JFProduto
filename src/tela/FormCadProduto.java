@@ -19,6 +19,8 @@ import modelo.Produto;
  */
 public class FormCadProduto extends javax.swing.JFrame {
 
+    public long idusuario;
+
     /**
      * Creates new form FormCadProduto
      */
@@ -167,7 +169,6 @@ public class FormCadProduto extends javax.swing.JFrame {
         Categoria cat = (Categoria) cbxCategoria.
                 getSelectedItem();
         p.setIdCategoria(cat.getId());
-        p.setNomeCategoria(cat.getNomeCategoria());
 
         String textobotao = this.btnCadastrar.getText();
         if (textobotao.equalsIgnoreCase("cadastrar")) {
@@ -179,7 +180,7 @@ public class FormCadProduto extends javax.swing.JFrame {
             }
 
         } else {
-            
+
             p.setId(Long.parseLong(txtId.getText()));
             boolean alterou = ProdutoControle.Atualizar(p);
             if (alterou) {

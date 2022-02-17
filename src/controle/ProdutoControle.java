@@ -25,14 +25,14 @@ public class ProdutoControle {
             Connection conn = BancoDados.getConexao(); //conectar com o bando de dados e enviar os dados salvos da classe Contato.
             String sql = "INSERT INTO tb_produto ";
             sql += " (nome, descricao, preco, "
-                    + "nome_categoria, id_categoria) ";
+                    + "id_usuario, id_categoria) ";
             sql += " VALUES (?,?,?,?,?);";
             PreparedStatement ps = conn.prepareStatement(sql,
                     Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, p.getNome());
             ps.setString(2, p.getDescricao());
             ps.setDouble(3, p.getPreco());
-            ps.setString(4, p.getNomeCategoria());
+            ps.setLong(4, p.getIdUsuario());
             ps.setLong(5, p.getIdCategoria());
             int linhasafetadas = ps.executeUpdate();
             if (linhasafetadas > 0) {
@@ -69,7 +69,7 @@ public class ProdutoControle {
                 p.setId(rs.getLong("id"));
                 p.setIdCategoria(rs.getLong("id_categoria"));
                 p.setNome(rs.getString("nome"));
-                p.setNomeCategoria(rs.getString("nome_categoria"));
+                p.setIdUsuario(rs.getLong("id_usuario"));
                 p.setPreco(rs.getDouble("preco"));
                 p.setDescricao(rs.getString("descricao"));
                 p.setDataCadastro(rs.getDate("data_cadastro"));
@@ -89,15 +89,15 @@ public class ProdutoControle {
             sql += " SET nome = ?, ";
             sql += " descricao = ?, ";
             sql += " preco = ?, ";
-            sql += " idcategoria = ?, ";
-            sql += " nomecategoria = ? ";
+            sql += " id_categoria = ?, ";
+            sql += " id_usuario = ? ";
             sql += " WHERE id = ?; ";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, p.getNome());
             ps.setString(2, p.getDescricao());
             ps.setDouble(3, p.getPreco());
             ps.setLong(4, p.getIdCategoria());
-            ps.setString(5, p.getNomeCategoria());
+            ps.setLong(5, p.getIdUsuario());
             ps.setLong(6, p.getId());
             int linhasafetadas = ps.executeUpdate();
             if (linhasafetadas > 0) {
@@ -112,7 +112,7 @@ public class ProdutoControle {
         }
     }
 
-    public static boolean Excluir(long idContato) {
+    public static boolean Excluir(long id) {
         return true;
     }
 

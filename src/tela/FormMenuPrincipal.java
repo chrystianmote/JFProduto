@@ -11,6 +11,8 @@ package tela;
  */
 public class FormMenuPrincipal extends javax.swing.JFrame {
 
+    public long idusuario;
+
     /**
      * Creates new form FormMenuPrincipal
      */
@@ -96,6 +98,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private void mniCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadastrarProdutoActionPerformed
         // TODO add your handling code here:
         FormCadProduto form = new FormCadProduto();
+        form.idusuario = this.idusuario;
         form.setVisible(true);
 
     }//GEN-LAST:event_mniCadastrarProdutoActionPerformed
@@ -103,6 +106,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private void mniCadastrarCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCadastrarCategoriaActionPerformed
         // TODO add your handling code here:
         FormCadCategoria form = new FormCadCategoria();
+        form.idusuario = this.idusuario;
         form.setVisible(true);
     }//GEN-LAST:event_mniCadastrarCategoriaActionPerformed
 

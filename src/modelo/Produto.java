@@ -14,17 +14,17 @@ import java.sql.Date;
 public class Produto {
 
     /**
-     * @return the nomeCategoria
+     * @return the idUsuario
      */
-    public String getNomeCategoria() {
-        return nomeCategoria;
+    public long getIdUsuario() {
+        return idUsuario;
     }
 
     /**
-     * @param nomeCategoria the nomeCategoria to set
+     * @param idUsuario the idUsuario to set
      */
-    public void setNomeCategoria(String nomeCategoria) {
-        this.nomeCategoria = nomeCategoria;
+    public void setIdUsuario(long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     /**
@@ -117,5 +117,5 @@ public class Produto {
     private double preco;
     private Date dataCadastro;
     private long idCategoria;
-    private String nomeCategoria;
+    private long idUsuario;
 }
